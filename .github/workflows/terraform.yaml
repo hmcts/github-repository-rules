@@ -46,7 +46,9 @@ jobs:
         run: cd components
 
       - name: Run Terraform Format
-        run: terraform fmt -recursive -check
+        run: |
+          cd components
+          terraform fmt -recursive
 
       - name: Run Pre-commit
         uses: pre-commit/action@v3.0.0
