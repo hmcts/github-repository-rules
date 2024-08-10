@@ -27,7 +27,7 @@ resource "azurerm_storage_container" "tfstate" {
 }
 
 resource "github_organization_ruleset" "default_ruleset" {
-  name   = "Default Rule Set"
+  name = "Default Rule Set"
 
   target = "branch"
 
@@ -47,10 +47,10 @@ resource "github_organization_ruleset" "default_ruleset" {
   }
 
   rules {
-    creation                = null
-    update                  = null
-    deletion                = false
-    
+    creation = null
+    update   = null
+    deletion = false
+
     required_linear_history = true
 
     pull_request {
