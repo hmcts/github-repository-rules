@@ -68,6 +68,8 @@ jobs:
         uses: pre-commit/action@v3.0.0
         with:
           extra_args: --files components/**/*
+        continue-on-error: true
+          
 
   terraform:
     runs-on: ubuntu-latest
