@@ -41,17 +41,22 @@ jobs:
         run: ./cnp-azuredevops-libraries/scripts/tfenv-install-terraform.sh
         shell: bash
 
+      - name: Change to components directory
+        run: cd components
+
+      - name: Run Terraform Format
+        run: terraform fmt -recursive -check
+
       - name: Run Pre-commit
         uses: pre-commit/action@v3.0.0
         with:
-          extra_args: terraform_fmt --all-files
-        continue-on-error: true
-        
+          extra_args: --files components/**/*
   
       - name: Auto Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: components/*
+          commit_message: "Apply Terraform formatting changes"
+          file_pattern: components/**/*
 
   terraform:
     runs-on: ubuntu-latest
