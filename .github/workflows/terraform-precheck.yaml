@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      
       - name: Checkout cnp-azuredevops-libraries
         uses: actions/checkout@v4
         with:
@@ -46,4 +46,5 @@ jobs:
           git config --global user.email "hmcts-platform-operations"
           git config --global user.name "github-platform-operations@HMCTS.NET"
           git add .
-          git diff-index --quiet HEAD || (git commit -m "Auto format with terraform fmt" && git push origin ${{ github.ref }})
+          git commit -m "Auto format with terraform fmt"
+          git push origin ${{ github.ref }}
