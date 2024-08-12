@@ -2,7 +2,8 @@ name: Terraform CI/CD
 
 on:
   workflow_run:
-    workflows: ["Pre Check"]
+    workflows:
+      - "Pre Check"
     types:
       - completed
 
