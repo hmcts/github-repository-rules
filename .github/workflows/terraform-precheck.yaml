@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-      - DTSPO-18104-typo-file-V2
+      - DTSPO-18475-Fix-Up
   workflow_dispatch:
 
 permissions:
