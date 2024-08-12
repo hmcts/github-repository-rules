@@ -46,5 +46,11 @@ jobs:
           git config --global user.email "hmcts-platform-operations"
           git config --global user.name "github-platform-operations@HMCTS.NET"
           git add .
-          git commit -m "Auto format with terraform fmt"
-          git push origin ${{ github.ref }}
+          git diff-index --quiet HEAD || (git commit -m "Auto format with terraform fmt" && git push origin ${{ github.ref }})
+
+      - name: Trigger Terraform CI/CD
+        if: success()
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: terraform-pre-check-completed
