@@ -42,16 +42,13 @@ jobs:
         run: ./cnp-azuredevops-libraries/scripts/tfenv-install-terraform.sh
         shell: bash
 
-      - name: Change to components directory
-        run: cd components
-
       - name: Terraform Format
-        working-directory: components
         run: terraform fmt -recursive
-
-      - name: Check Terraform Formatting
         working-directory: components
+      
+      - name: Check Terraform Formatting
         run: terraform fmt -check -diff -recursive
+        working-directory: components
 
       - name: Run Pre-commit
         uses: pre-commit/action@v3.0.0
@@ -116,4 +113,3 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
           GITHUB_TOKEN: ${{ secrets.OAUTH_TOKEN }}
         run: terraform apply -var="oauth_token=${{ secrets.OAUTH_TOKEN }}" -auto-approve
-        
