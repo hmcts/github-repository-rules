@@ -1,6 +1,11 @@
 name: Terraform CI/CD
 
 on:
+  workflow_run:
+    workflows: ["Terraform Pre-Check"]
+    types:
+      - completed
+
   pull_request:
     branches:
       - main
@@ -9,57 +14,15 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  TF_LOG: INFO
-
-permissions:
-  id-token: write
-  issues: write
-  pull-requests: write
-  contents: write
-
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           path: .
-
-      - name: Checkout cnp-azuredevops-libraries
-        uses: actions/checkout@v4
-        with:
-          repository: hmcts/cnp-azuredevops-libraries
-          path: cnp-azuredevops-libraries
-  
-      - name: Setup Script
-        run: |
-          chmod +x cnp-azuredevops-libraries/scripts/tfenv-install-terraform.sh
-  
-      - name: Setup Terraform
-        run: ./cnp-azuredevops-libraries/scripts/tfenv-install-terraform.sh
-        shell: bash
-
-      - name: Terraform Format
-        run: terraform fmt -recursive
-        working-directory: components
-
-      - name: Commit and Push Changes
-        working-directory: components
-        run: |
-          git config --global user.email "hmcts-platform-operations"
-          git config --global user.name "github-platform-operations@HMCTS.NET'"
-          git add .
-          git commit -m "Auto format with terraform fmt"
-          git push origin ${{ github.ref }}
-
-      - name: Run Pre-commit
-        uses: pre-commit/action@v3.0.0
-        with:
-          extra_args: --files components/**/*.tf
-        continue-on-error: true
-          
 
   terraform:
     runs-on: ubuntu-latest

@@ -1,0 +1,40 @@
+name: Terraform Pre-Check
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  pre-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Checkout cnp-azuredevops-libraries
+        uses: actions/checkout@v4
+        with:
+          repository: hmcts/cnp-azuredevops-libraries
+          path: cnp-azuredevops-libraries
+
+      - name: Setup Terraform
+        run: ./cnp-azuredevops-libraries/scripts/tfenv-install-terraform.sh
+        shell: bash
+
+      - name: Terraform Format
+        run: terraform fmt -recursive
+        working-directory: components
+
+      - name: Commit and Push Changes
+        working-directory: components
+        run: |
+          git config --global user.email "hmcts-platform-operations"
+          git config --global user.name "github-platform-operations@HMCTS.NET"
+          git add .
+          git commit -m "Auto format with terraform fmt"
+          git push origin ${{ github.ref }}
