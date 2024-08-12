@@ -5,6 +5,7 @@ on:
     workflows: ["Terraform Pre-Check"]
     types:
       - completed
+      workflow_dispatch:
 
 permissions:
   actions: write
