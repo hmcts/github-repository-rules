@@ -10,12 +10,11 @@ on:
       - DTSPO-18475-Fix-Up
   workflow_dispatch:
 
-
 permissions:
-      id-token: write
-      issues: write
-      pull-requests: write
-      contents: write
+  id-token: write
+  issues: write
+  pull-requests: write
+  contents: write
 
 jobs:
   pre-check:
@@ -29,6 +28,9 @@ jobs:
         with:
           repository: hmcts/cnp-azuredevops-libraries
           path: cnp-azuredevops-libraries
+
+      - name: Make Terraform Setup Script Executable
+        run: chmod +x cnp-azuredevops-libraries/scripts/tfenv-install-terraform.sh
 
       - name: Setup Terraform
         run: ./cnp-azuredevops-libraries/scripts/tfenv-install-terraform.sh
