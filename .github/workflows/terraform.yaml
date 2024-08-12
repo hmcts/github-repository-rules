@@ -54,10 +54,6 @@ jobs:
           git add .
           git commit -m "Auto format with terraform fmt"
           git push origin ${{ github.ref }}
-      
-      - name: Check Terraform Formatting
-        run: terraform fmt -check -diff -recursive
-        working-directory: components
 
       - name: Run Pre-commit
         uses: pre-commit/action@v3.0.0
