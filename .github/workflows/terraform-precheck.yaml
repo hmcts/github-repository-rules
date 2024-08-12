@@ -36,29 +36,17 @@ jobs:
         run: ./cnp-azuredevops-libraries/scripts/tfenv-install-terraform.sh
         shell: bash
 
-      - name: Check for Terraform Changes
-        id: check_changes
-        run: |
-          if git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
-            files=$(git diff --name-only HEAD~1)
-          else
-            files=$(git diff --name-only HEAD)
-          fi
-          echo "::set-output name=files::$files"
-
       - name: Terraform Format
-        if: ${{ contains(steps.check_changes.outputs.files, '.tf') }}
         run: terraform fmt -recursive
         working-directory: components
 
       - name: Commit and Push Changes
-        if: ${{ contains(steps.check_changes.outputs.files, '.tf') }}
         working-directory: components
         run: |
-          git config --global user.email "hmcts-platform-operations"
-          git config --global user.name "github-platform-operations@HMCTS.NET"
+          git config --global user.email "hmcts-platform-operations@HMCTS.NET"
+          git config --global user.name "hmcts-platform-operations"
           git add .
-          git commit -m "Auto format with terraform fmt"
+          git commit -m "Auto format with terraform fmt" || echo "No changes to commit"
           git push origin ${{ github.ref }}
 
       - name: Trigger Terraform CI/CD Workflow
