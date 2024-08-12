@@ -45,6 +45,15 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -recursive
         working-directory: components
+
+      - name: Commit and Push Changes
+        working-directory: components
+        run: |
+          git config --global user.email "hmcts-platform-operations"
+          git config --global user.name "github-platform-operations@HMCTS.NET'"
+          git add .
+          git commit -m "Auto format with terraform fmt"
+          git push origin ${{ github.ref }}
       
       - name: Check Terraform Formatting
         run: terraform fmt -check -diff -recursive
