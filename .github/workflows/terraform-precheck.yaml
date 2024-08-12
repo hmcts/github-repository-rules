@@ -55,4 +55,4 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${{ secrets.OAUTH_TOKEN }}" \
           https://api.github.com/repos/hmcts/github-repository-rules/actions/workflows/terraform.yaml/dispatches \
-          -d '{"ref":"main"}'
+          -d '{"ref":"DTSPO-18104-typo-file-V2"}'
