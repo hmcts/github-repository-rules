@@ -49,6 +49,10 @@ jobs:
         working-directory: components
         run: terraform fmt -recursive
 
+      - name: Check Terraform Formatting
+        working-directory: components
+        run: terraform fmt -check -diff -recursive
+
       - name: Run Pre-commit
         uses: pre-commit/action@v3.0.0
         with:
