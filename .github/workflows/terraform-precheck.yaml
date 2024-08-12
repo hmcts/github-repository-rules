@@ -1,4 +1,4 @@
-name: Pre Check
+name: Terraform Pre-Check
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-      - DTSPO-18475-Fix-Up
+      - DTSPO-18104-typo-file-V2
   workflow_dispatch:
 
 permissions:
@@ -43,8 +43,18 @@ jobs:
       - name: Commit and Push Changes
         working-directory: components
         run: |
-          git config --global user.email "hmcts-platform-operations"
-          git config --global user.name "github-platform-operations@HMCTS.NET"
+          git config --global user.email "hmcts-platform-operations@HMCTS.NET"
+          git config --global user.name "hmcts-platform-operations"
           git add .
-          git commit -m "Auto format with terraform fmt"
+          git commit -m "Auto format with terraform fmt" || echo "No changes to commit"
           git push origin ${{ github.ref }}
+
+      - name: Trigger Terraform CI/CD Workflow
+        run: |
+          branch=$(echo "${{ github.ref }}" | sed 's/refs\/heads\///')
+          curl -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ secrets.OAUTH_TOKEN }}" \
+          https://api.github.com/repos/hmcts/github-repository-rules/actions/workflows/terraform.yaml/dispatches \
+          -d "{\"ref\":\"${branch}\"}"
+
