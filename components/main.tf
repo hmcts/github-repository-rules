@@ -27,8 +27,8 @@ resource "azurerm_storage_container" "tfstate" {
 }
 
 resource "github_organization_ruleset" "default_ruleset" {
-    name        = "Default Branch Protection"
-    target      = "branch"
+  name        = "Default Branch Protection"
+  target      = "branch"
   enforcement = "active"
 
   conditions {
