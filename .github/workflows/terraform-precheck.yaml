@@ -1,4 +1,4 @@
-name: Terraform Pre-Check
+name: Pre Check
 
 on:
   pull_request:
