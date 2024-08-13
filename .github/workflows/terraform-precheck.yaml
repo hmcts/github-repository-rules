@@ -43,15 +43,17 @@ jobs:
         working-directory: components
 
       - name: Commit and Push Changes
+        if: ${{ github.event_name == 'push' }}
         working-directory: components
         run: |
           git config --global user.email "hmcts-platform-operations@HMCTS.NET"
           git config --global user.name "hmcts-platform-operations"
           git add -u
           git diff-index --quiet HEAD || git commit -m "Format with terraform fmt"
-          git push origin HEAD:${{ github.head_ref }}
+          git push origin HEAD:${{ github.head_ref }} || echo "No changes to push"
 
       - name: Trigger Terraform CI/CD Workflow
+        if: ${{ github.event_name == 'push' }}
         run: |
           branch=$(echo "${{ github.ref }}" | sed 's/refs\/heads\///')
           curl -X POST \
