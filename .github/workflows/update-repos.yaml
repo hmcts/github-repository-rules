@@ -31,9 +31,6 @@ jobs:
     - name: Run update-repo-list script
       run: python scripts/update-repo-list.py
 
-    - name: Run update-readme script
-      run: python scripts/update-readme.py
-
     - name: Install jq
       run: sudo apt-get install jq -y
 
