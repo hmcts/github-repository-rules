@@ -116,14 +116,10 @@ def load_production_repos():
             return repos
     except FileNotFoundError:
         logging.error(f"Error: 'production-repos.json' not found at {os.path.abspath(json_file_path)}")
-        logging.error("Current working directory: %s", os.getcwd())
         logging.error("Contents of the current directory: %s", os.listdir('.'))
         raise
     except json.JSONDecodeError as e:
         logging.error(f"Error decoding JSON from {json_file_path}: {e}")
-        raise
-    except Exception as e:
-        logging.error(f"Unexpected error reading {json_file_path}: {e}")
         raise
 
 # Define the custom property at the organisation level
