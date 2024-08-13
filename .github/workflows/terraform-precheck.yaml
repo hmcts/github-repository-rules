@@ -47,12 +47,3 @@ jobs:
           git add -u
           git diff-index --quiet HEAD || git commit -m "Format with terraform fmt"
           git push origin HEAD:${{ github.head_ref }} || echo "No changes to push"
-
-      - name: Trigger Terraform CI/CD Workflow
-        run: |
-          branch=${{ github.head_ref || github.ref_name }}
-          curl -X POST \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token ${{ secrets.OAUTH_TOKEN }}" \
-          https://api.github.com/repos/hmcts/github-repository-rules/actions/workflows/terraform.yaml/dispatches \
-          -d "{\"ref\":\"${branch}\"}"

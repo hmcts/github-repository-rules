@@ -1,10 +1,9 @@
 name: Terraform CI/CD
 
 on:
-  workflow_run:
-    workflows: ["Terraform Pre-Check"]
-    types:
-      - completed
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
