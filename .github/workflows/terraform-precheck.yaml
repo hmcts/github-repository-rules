@@ -52,7 +52,6 @@ jobs:
           git push origin HEAD:${{ github.head_ref }} || echo "No changes to push"
 
       - name: Trigger Terraform CI/CD Workflow
-        if: ${{ github.event_name == 'push' }}
         run: |
           branch=$(echo "${{ github.ref }}" | sed 's/refs\/heads\///')
           curl -X POST \
