@@ -21,8 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Authenticate with OAuth Token
-        run: echo "${{ secrets.OAUTH_TOKEN }}" | gh auth login --with-token
+      # - name: Authenticate with OAuth Token
+      #   run: echo "${{ secrets.OAUTH_TOKEN }}" | gh auth login --with-token
 
       - name: Az CLI login
         uses: azure/login@v1
