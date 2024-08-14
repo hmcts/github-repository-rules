@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - DTSPO-18475-Fix-Up
   workflow_dispatch:
 
 permissions:
