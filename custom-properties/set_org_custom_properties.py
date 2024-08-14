@@ -27,14 +27,20 @@ def define_custom_property(org_name):
     """
     Define a custom property for the organisation.
 
+    1. Creates a custom "is_production" property for the entire organization.
+    2. Sends a PUT request to GitHub's API to create the property.
+    3. Defines the property as a boolean (true/false) value.
+
+    This is useful for categorizing repositories and can be used in workflows or for organizational purposes.
+
     Args:
         org_name (str): The name of the GitHub organisation.
 
     Returns:
-        int: The status code of the API response.
+        int: The status code of the API response (200 if successful).
 
     Raises:
-        requests.RequestException: If the API request fails.
+        requests.RequestException: If the API request to GitHub fails.
     """
     url = f"{API_BASE}/orgs/{org_name}/properties/schema/is_production"
     data = {
@@ -55,6 +61,10 @@ def define_custom_property(org_name):
 
 def set_custom_properties(repo_full_name, properties):
     """
+    1. Sets custom properties for the repositories listed from the JSON file.
+    2. Takes a repository's full name.
+    3. Sends a PUT request to GitHub's API to update the repository's properties.
+
     Set custom properties for a repository.
 
     Args:
@@ -84,6 +94,10 @@ def set_custom_properties(repo_full_name, properties):
 
 def get_custom_properties(repo_full_name):
     """
+    1. Retrieves the current custom properties of the repositories.
+    2. Sends a GET request to GitHub's API for the specific repository.
+    3. Returns the custom properties as a JSON object.
+
     Get custom properties for a repository.
 
     Args:
@@ -103,10 +117,14 @@ def get_custom_properties(repo_full_name):
 
 def load_production_repos():
     """
-    Load production repositories from production-repos.json file.
+    1. Loads a list of production repositories from a JSON file.
 
-    Returns:
-        list: A list of production repositories.
+    2. Reads production-repos.json.
+
+    3. Parses the JSON content and returns it as a list.
+
+    Load production repositories from production-repos.json file.
+    
     """
     script_dir = os.path.dirname(__file__)
     json_file_path = os.path.join(script_dir, '../production-repos.json')
