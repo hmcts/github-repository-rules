@@ -47,9 +47,11 @@ def define_custom_property(org_name):
     }
     response = requests.put(url, headers=headers, json=data)
     if response.status_code != 200:
-        logging.error(f"Failed to define custom property for {org_name}: {response.json().get('message', 'Unknown error')}")
+        error_message = response.json().get('message', f"HTTP {response.status_code} error")
+        logging.error(f"Failed to define custom property for {org_name}: {error_message}")
     response.raise_for_status()
     return response.status_code
+
 
 def set_custom_properties(repo_full_name, properties):
     """
@@ -75,7 +77,8 @@ def set_custom_properties(repo_full_name, properties):
     }
     response = requests.patch(url, headers=headers, json=data)
     if response.status_code != 204:
-        logging.error(f"Failed to set properties for {repo_full_name}: {response.json().get('message', 'Unknown error')}")
+        error_message = response.json().get('message', f"HTTP {response.status_code} error")
+        logging.error(f"Failed to set properties for {repo_full_name}: {error_message}")
     response.raise_for_status()
     return response.status_code
 
@@ -111,8 +114,6 @@ def load_production_repos():
     try:
         with open(json_file_path, 'r') as f:
             repos = json.load(f)
-            if not isinstance(repos, list):
-                raise ValueError("JSON content is not a list")
             return repos
     except FileNotFoundError:
         logging.error(f"Error: 'production-repos.json' not found at {os.path.abspath(json_file_path)}")
@@ -121,6 +122,7 @@ def load_production_repos():
     except json.JSONDecodeError as e:
         logging.error(f"Error decoding JSON from {json_file_path}: {e}")
         raise
+
 
 # Define the custom property at the organisation level
 try:
