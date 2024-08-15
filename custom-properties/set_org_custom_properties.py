@@ -27,11 +27,16 @@ def define_custom_property(org_name):
     """
     Define a custom property for the organisation.
 
-    1. Creates a custom "is_production" property for the entire organization.
+    1. Creates a custom "is_production" property at the organisation level, which is then passed down to the individual repository level.
     2. Sends a PUT request to GitHub's API to create the property.
     3. Defines the property as a boolean (true/false) value.
+    4. The JSON file is where all the production repositories are stored, these will then be used to assign custom properties to.
 
-    This is useful for categorizing repositories and can be used in workflows or for organizational purposes.
+    Error Handling:
+
+    1. Checks if the API response status code is not 200.
+    2. Logs an error message with the specific reason from the API, or a generic HTTP status code error if no specific message is provided.
+    3. Raises an HTTP error if the request was unsuccessful.
 
     Args:
         org_name (str): The name of the GitHub organisation.
@@ -41,7 +46,9 @@ def define_custom_property(org_name):
 
     Raises:
         requests.RequestException: If the API request to GitHub fails.
+        
     """
+
     url = f"{API_BASE}/orgs/{org_name}/properties/schema/is_production"
     data = {
         "value_type": "true_false",
@@ -62,10 +69,16 @@ def define_custom_property(org_name):
 def set_custom_properties(repo_full_name, properties):
     """
     1. Sets custom properties for the repositories listed from the JSON file.
-    2. Takes a repository's full name.
-    3. Sends a PUT request to GitHub's API to update the repository's properties.
+    2. Sends a PATCH request to GitHub's API to update the repository's properties.
 
-    Set custom properties for a repository.
+    Sets the custom properties for a repository.
+
+    Error Handling:
+    1. Checks if the API response status code is not 204.
+    2. Logs an error message with the specific reason from the API, or a generic HTTP status code error if no specific message can be provided.
+    3. Raises an HTTP error if the request was unsuccessful.
+
+    Sets the custom properties for a repository.
 
     Args:
         repo_full_name (str): The full name of the repository (org/repo).
@@ -76,7 +89,9 @@ def set_custom_properties(repo_full_name, properties):
 
     Raises:
         requests.RequestException: If the API request fails.
+
     """
+
     owner, repo = repo_full_name.split('/')
     url = f"{API_BASE}/repos/{owner}/{repo}/properties/values"
     data = {
@@ -94,11 +109,11 @@ def set_custom_properties(repo_full_name, properties):
 
 def get_custom_properties(repo_full_name):
     """
+    Get custom properties for a repository.
+
     1. Retrieves the current custom properties of the repositories.
     2. Sends a GET request to GitHub's API for the specific repository.
     3. Returns the custom properties as a JSON object.
-
-    Get custom properties for a repository.
 
     Args:
         repo_full_name (str): The full name of the repository (org/repo).
@@ -108,7 +123,9 @@ def get_custom_properties(repo_full_name):
 
     Raises:
         requests.RequestException: If the API request fails.
+
     """
+
     owner, repo = repo_full_name.split('/')
     url = f"{API_BASE}/repos/{owner}/{repo}/properties/values"
     response = requests.get(url, headers=headers)
@@ -118,14 +135,16 @@ def get_custom_properties(repo_full_name):
 def load_production_repos():
     """
     1. Loads a list of production repositories from a JSON file.
-
-    2. Reads production-repos.json.
-
+    2. Reads from the production-repos.json.
     3. Parses the JSON content and returns it as a list.
 
-    Load production repositories from production-repos.json file.
+
+    Error Handling:
+    1. Handles FileNotFoundError by logging an error if the JSON file is not found, including the expected file path and current directory contents.
+    2. Handles JSONDecodeError by logging an error if the JSON file cannot be parsed correctly, including the specific error encountered.
     
     """
+
     script_dir = os.path.dirname(__file__)
     json_file_path = os.path.join(script_dir, '../production-repos.json')
     
