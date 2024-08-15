@@ -8,9 +8,9 @@ on:
 
 permissions:
   actions: write
-  id-token: write
-  issues: write
-  pull-requests: write
+  # id-token: write
+  # issues: write
+  # pull-requests: write
   contents: write
 
 jobs:

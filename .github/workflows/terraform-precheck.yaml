@@ -39,7 +39,6 @@ jobs:
         working-directory: components
 
       - name: Commit and Push Changes
-        if: ${{ github.event_name == 'push' }}
         working-directory: components
         run: |
           git config --global user.email "hmcts-platform-operations@HMCTS.NET"

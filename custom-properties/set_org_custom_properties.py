@@ -27,7 +27,7 @@ def define_custom_property(org_name):
     """
     Define a custom property for the organisation.
 
-    1. Creates a custom "is_production" property at the organisation level, which is then passed down to the individual repository level.
+    1. Creates a custom property called "is_production" at the organisation level, which is then passed down to the individual repository level.
     2. Sends a PUT request to GitHub's API to create the property.
     3. Defines the property as a boolean (true/false) value.
     4. The JSON file is where all the production repositories are stored, these will then be used to assign custom properties to.
