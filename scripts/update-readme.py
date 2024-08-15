@@ -13,6 +13,11 @@ README_FILE_PATH = os.path.join(script_dir, '../ReadMe.md')
 def load_repos(file_path):
     """
     Load repositories from the given JSON file.
+
+    1. Attempts to open and read the specified JSON file.
+    2. Parses the JSON content and ensures it is a list.
+    3. Returns the list of repositories.
+
     """
     try:
         with open(file_path, 'r') as f:
@@ -27,6 +32,11 @@ def load_repos(file_path):
 def update_readme(prod_count, dev_count, prod_link):
     """
     Update the README file with the counts of various types of repositories.
+
+    1. Reads the existing README file content.
+    2. Updates the section between markers with new repository counts.
+    3. Writes the updated content back to the README file.
+    
     """
     try:
         with open(README_FILE_PATH, 'r') as file:
