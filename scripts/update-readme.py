@@ -14,9 +14,24 @@ def load_repos(file_path):
     """
     Load repositories from the given JSON file.
 
-    1. Attempts to open and read the specified JSON file.
+    1. Opens and reads the JSON file from the path above.
     2. Parses the JSON content and ensures it is a list.
     3. Returns the list of repositories.
+
+    Error Handling:
+
+    1. Logs an error if the file is not found at the path specified above.
+
+    Args:
+        file_path: The path to the JSON file containing the repositories.
+
+    Returns:
+        list: A list of repositories parsed from the JSON file.
+
+    Raises:
+        FileNotFoundError: If the JSON file path is not found.
+        ValueError: If the JSON content is not a list.
+        json.JSONDecodeError: If the JSON file contains invalid JSON.
 
     """
     try:
@@ -31,11 +46,20 @@ def load_repos(file_path):
 
 def update_readme(prod_count, dev_count, prod_link):
     """
-    Update the README file with the counts of various types of repositories.
+    Update the README file with a count displayed of the number of production repositories as custom properties can't be searched by in GitHub.
 
     1. Reads the existing README file content.
     2. Updates the section between markers with new repository counts.
     3. Writes the updated content back to the README file.
+
+    Error Handling:
+
+    1. Prints "Failed to update README file" if the README file cannot be found at the path we defined above.
+
+    Args:
+        1. prod_count: This integer is the number of production repositories.
+        2. dev_count: The number of development repositories.
+        3. prod_link: The file path to the production repositories JSON file.
     
     """
     try:
