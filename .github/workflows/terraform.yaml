@@ -5,6 +5,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+  push:
+    branches:
+      - DTSPO-18475-Fix-Up
 
 permissions:
   contents: write

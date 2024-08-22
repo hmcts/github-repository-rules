@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - DTSPO-18475-Fix-Up
   workflow_dispatch:
 
 permissions:
@@ -41,4 +44,3 @@ jobs:
           git add -u
           git diff-index --quiet HEAD || git commit -m "Format with terraform fmt"
           git push origin HEAD:${{ github.head_ref }} || echo "No changes to push"
-          
