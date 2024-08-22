@@ -15,7 +15,7 @@ if not TOKEN:
     raise ValueError("OAUTH_TOKEN environment variable is not set")
 
 # Your organisation name
-ORG_NAME = "hmcts"
+ORG_NAME = "hmcts-test"
 
 # Headers for API requests
 headers = {
