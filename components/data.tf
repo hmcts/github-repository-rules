@@ -1,5 +1,5 @@
 data "github_team" "admin" {
-  slug = "platform-operations" # Add more teams here if you want to exlcude them from the rulesets
+  slug = "" # Add more teams here if you want to exlcude them from the rulesets
 }
 
 data "local_file" "repos_json" {
