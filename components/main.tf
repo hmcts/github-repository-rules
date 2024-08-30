@@ -27,7 +27,7 @@ resource "azurerm_storage_container" "tfstate" {
 }
 
 resource "github_organization_ruleset" "default_ruleset" {
-  name        = "Rule Set"
+  name        = "Rule Set Production Repositories"
   target      = "branch"
   enforcement = "active"
 

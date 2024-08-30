@@ -15,7 +15,7 @@ if not TOKEN:
     raise ValueError("OAUTH_TOKEN environment variable is not set")
 
 # Your organisation name
-ORG_NAME = "hmcts-test"
+ORG_NAME = "hmcts"
 
 # Headers for API requests
 headers = {
@@ -26,24 +26,18 @@ headers = {
 def define_custom_property(org_name):
     """
     Define a custom property for the organisation.
-
     1. Creates a custom property called "is_production" at the organisation level, which is then passed down to the individual repository level.
     2. Sends a PUT request to GitHub's API to create the property.
     3. Defines the property as a boolean (true/false) value.
     4. The JSON file is where all the production repositories are stored, these will then be used to assign custom properties to.
-
     Error Handling:
-
     1. Checks if the API response status code is not 200.
     2. Logs an error message with the specific reason from the API, or a generic HTTP status code error if no specific message is provided.
     3. Raises an HTTP error if the request was unsuccessful.
-
     Args:
         org_name (str): The name of the GitHub organisation.
-
     Returns:
         int: The status code of the API response (200 if successful).
-
     Raises:
         requests.RequestException: If the API request to GitHub fails.
         
@@ -70,26 +64,19 @@ def set_custom_properties(repo_full_name, properties):
     """
     1. Sets custom properties for the repositories listed from the JSON file.
     2. Sends a PATCH request to GitHub's API to update the repository's properties.
-
     Sets the custom properties for a repository.
-
     Error Handling:
     1. Checks if the API response status code is not 204.
     2. Logs an error message with the specific reason from the API, or a generic HTTP status code error if no specific message can be provided.
     3. Raises an HTTP error if the request was unsuccessful.
-
     Sets the custom properties for a repository.
-
     Args:
         repo_full_name (str): The full name of the repository (org/repo).
         properties (dict): The custom properties to set.
-
     Returns:
         int: The status code of the API response.
-
     Raises:
         requests.RequestException: If the API request fails.
-
     """
 
     owner, repo = repo_full_name.split('/')
@@ -110,20 +97,15 @@ def set_custom_properties(repo_full_name, properties):
 def get_custom_properties(repo_full_name):
     """
     Get custom properties for a repository.
-
     1. Retrieves the current custom properties of the repositories.
     2. Sends a GET request to GitHub's API for the specific repository.
     3. Returns the custom properties as a JSON object.
-
     Args:
         repo_full_name (str): The full name of the repository (org/repo).
-
     Returns:
         dict: The custom properties of the repository.
-
     Raises:
         requests.RequestException: If the API request fails.
-
     """
 
     owner, repo = repo_full_name.split('/')
@@ -137,8 +119,6 @@ def load_production_repos():
     1. Loads a list of production repositories from a JSON file.
     2. Reads from the production-repos.json.
     3. Parses the JSON content and returns it as a list.
-
-
     Error Handling:
     1. Handles FileNotFoundError by logging an error if the JSON file is not found, including the expected file path and current directory contents.
     2. Handles JSONDecodeError by logging an error if the JSON file cannot be parsed correctly, including the specific error encountered.
@@ -147,7 +127,7 @@ def load_production_repos():
 
     script_dir = os.path.dirname(__file__)
     json_file_path = os.path.join(script_dir, '../production-repos.json')
-    
+
     try:
         with open(json_file_path, 'r') as f:
             repos = json.load(f)

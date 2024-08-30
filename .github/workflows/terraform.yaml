@@ -56,6 +56,7 @@ jobs:
 
       - name: Terraform Apply
         working-directory: components
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.DCD_CFT_SANDBOX_SUBSCRIPTION }}
