@@ -27,7 +27,7 @@ resource "azurerm_storage_container" "tfstate" {
 }
 
 resource "github_organization_ruleset" "default_ruleset" {
-  name        = "Default Branch Protection"
+  name        = "Rule Set Production Repositories"
   target      = "branch"
   enforcement = "active"
 
@@ -73,4 +73,3 @@ resource "github_organization_ruleset" "default_ruleset" {
     bypass_mode = "always"
   }
 }
-
