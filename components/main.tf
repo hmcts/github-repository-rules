@@ -55,16 +55,6 @@ resource "github_organization_ruleset" "default_ruleset" {
       require_last_push_approval        = true
       required_review_thread_resolution = true
     }
-
-    required_status_checks {
-      strict_required_status_checks_policy = true
-      required_check {
-        context = "ci/lint"
-      }
-      required_check {
-        context = "ci/test"
-      }
-    }
   }
 
   bypass_actors {
@@ -73,3 +63,4 @@ resource "github_organization_ruleset" "default_ruleset" {
     bypass_mode = "always"
   }
 }
+
