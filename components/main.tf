@@ -37,8 +37,8 @@ resource "github_organization_ruleset" "default_ruleset" {
       exclude = []
     }
     repository_name {
-      include = null
-      exclude = null
+      include = []
+      exclude = []
     }
   }
 
