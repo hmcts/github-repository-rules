@@ -27,7 +27,7 @@ resource "azurerm_storage_container" "tfstate" {
 }
 
 resource "github_organization_ruleset" "default_ruleset" {
-  name        = "Rule Set Production Repositories"
+  name        = "Production Repositories"
   target      = "branch"
   enforcement = "active"
 
@@ -37,7 +37,7 @@ resource "github_organization_ruleset" "default_ruleset" {
       exclude = []
     }
     repository_name {
-      include = local.included_repositories
+      include = []
       exclude = []
     }
   }
@@ -49,11 +49,8 @@ resource "github_organization_ruleset" "default_ruleset" {
     required_linear_history = true
 
     pull_request {
-      dismiss_stale_reviews_on_push     = true
       require_code_owner_review         = false
       required_approving_review_count   = 1
-      require_last_push_approval        = true
-      required_review_thread_resolution = true
     }
   }
 
