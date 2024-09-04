@@ -36,10 +36,6 @@ resource "github_organization_ruleset" "default_ruleset" {
       include = ["refs/heads/main", "refs/heads/master"]
       exclude = []
     }
-    repository_name {
-      include = local.included_repositories
-      exclude = []
-    }
   }
 
   rules {
