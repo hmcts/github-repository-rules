@@ -30,7 +30,7 @@ This Terraform configuration automates the process of setting up rule sets at th
 - Creates a ruleset at the organisation level, this applies standardisation across all repositories.
 - Creates custom properties for repositories, such as marking repositories as "is_production."
 - A good note to make is that you do not have to update this codebase as it will pull any new production repositories from the URL's provided and update itself at midnight.
-- If you want to you can add repositories in yourself by raising a PR from main, adding in your repositories to the production-repos.json file that you want to add. Then merge the PR once ready.
+- If you want to you can add repositories in yourself by raising a PR from main, add your repositories to the production-repos.json. Then merge the PR once ready.
 
 
 ## Maintenance
