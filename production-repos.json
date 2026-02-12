@@ -329,5 +329,7 @@
   "lau-idam-backend",
   "lau-shared-infrastructure",
   "ccfr-fees-register-admin-web",
-  "adoption-cos-api"
+  "adoption-cos-api",
+  "caps-infra",
+  "caseman-infra"
 ]
