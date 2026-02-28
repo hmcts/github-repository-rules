@@ -12,7 +12,7 @@ This Terraform configuration automates the process of setting up rule sets at th
 
 | **Repository Type**       | **Count** |
 |---------------------------|-----------|
-| Production Repositories   | [332](../production-repos.json)        |
+| Production Repositories   | [333](../production-repos.json)        |
 | Development Repositories  | 0        |
 <!--END_PRODUCTION_COUNT-->
 
